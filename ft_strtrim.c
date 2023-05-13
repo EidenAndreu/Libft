@@ -6,7 +6,7 @@
 /*   By: ereinald <ereinald@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 21:37:05 by ereinald          #+#    #+#             */
-/*   Updated: 2023/05/13 22:09:55 by ereinald         ###   ########.fr       */
+/*   Updated: 2023/05/13 22:27:29 by ereinald         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,44 +15,37 @@
 
 char	*ft_strtrim(char const *s1, char const *set)
 {
-	size_t	start;
-	size_t	end;
-	size_t	len;
-	char	*trimmed;
+	size_t	i;
+	size_t	j;
+	char	*str;
 
-	if (!s1 || !set)
-		return (NULL);
-	len = ft_strlen(s1);
-	start = 0;
-	while (s1[start] && ft_strchr(set, s1[start]))
-		start++;
-	end = len - 1;
-	while (end > start && ft_strchr(set, s1[end]))
-		end--;
-	trimmed = (char *)malloc(sizeof(char) * (end - start + 2));
-	if (!trimmed)
-		return (NULL);
-	ft_strlcpy(trimmed, s1 + start, end - start + 2);
-	return (trimmed);
+	str = 0;
+	if (s1 != 0 && set != 0)
+	{
+		i = 0;
+		j = 0;
+		while (s1[i] && ft_strchr(set, s1[i]))
+			i++;
+		while (s1[j - 1] && ft_strchr(set, s1[j - 1]) && j > i)
+			j--;
+		str = (char *)malloc(sizeof(char) * (j - i + 1));
+		if (str)
+			ft_strlcpy(str, &s1[i], j - i + 1);
+	}
+	return (str);
 }
 
-#include <stdio.h>
+/*#include <stdio.h>
 
 int main(void)
 {
-    char const *s1 = "  \t\n  This is a string!  \n\t ";
-    char const *set = " \t\n";
-    char *trimmed = ft_strtrim(s1, set);
-    if (trimmed)
-    {
-        printf("Original string: \"%s\"\n", s1);
-        printf("Trimmed string: \"%s\"\n", trimmed);
-        free(trimmed);
-    }
-    else
-    {
-        printf("Failed to allocate memory.\n");
-    }
-    return 0;
-}
+    char *str = "  \t  Hola, mundo! \n  ";
+    char *set = " \t\n";
 
+    printf("Antes de trim: \"%s\"\n", str);
+    char *trimmed_str = ft_strtrim(str, set);
+    printf("Después de trim: \"%s\"\n", trimmed_str);
+    free(trimmed_str);
+
+    return 0;
+}*/
