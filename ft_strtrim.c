@@ -6,7 +6,7 @@
 /*   By: ereinald <ereinald@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 21:37:05 by ereinald          #+#    #+#             */
-/*   Updated: 2023/05/13 22:27:29 by ereinald         ###   ########.fr       */
+/*   Updated: 2023/05/13 22:40:48 by ereinald         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ char	*ft_strtrim(char const *s1, char const *set)
 	if (s1 != 0 && set != 0)
 	{
 		i = 0;
-		j = 0;
+		j = ft_strlen(s1);
 		while (s1[i] && ft_strchr(set, s1[i]))
 			i++;
 		while (s1[j - 1] && ft_strchr(set, s1[j - 1]) && j > i)
