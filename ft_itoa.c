@@ -1,4 +1,5 @@
-#include ¨libft.h¨
+#include "libft.h"
+#include <limits.h>
 
 static int	ft_digit_count(long int i)
 {
@@ -18,31 +19,38 @@ static int	ft_digit_count(long int i)
 	return (count);
 }
 
-char		*ft_itoa(int n)
+char	*ft_itoa(int n)
 {
 	char		*str;
 	int			i;
-	long int	nb;
 
-	nb = n;
-	i = ft_digit_count(nb);
-	if (!(str = malloc(i * sizeof(char) + 1)))
+/*	if (n == INT_MIN)
+	{
+		str = (char *)malloc(12 * sizeof(char));
+		if (!str)
+			return (NULL);
+		ft_strlcpy(str, "-2147483648", 12);
+		return (str);
+	}
+*/	i = ft_digit_count(n);
+	str = malloc(i * sizeof(char) + 1);
+	if (!str)
 		return (0);
 	str[i--] = 0;
-	if (nb == 0)
+	if (n == 0)
 	{
 		str = ft_calloc(2, sizeof(char));
 		str[0] = 48;
 	}
-	if (nb < 0)
+	if (n < 0)
 	{
 		str[0] = '-';
-		nb = nb * -1;
+		n = n * -1;
 	}
-	while (nb > 0)
+	while (n > 0)
 	{
-		str[i--] = nb % 10 + '0';
-		nb = nb / 10;
+		str[i--] = n % 10 + '0';
+		n = n / 10;
 	}
 	return (str);
 }
