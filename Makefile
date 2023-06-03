@@ -6,15 +6,17 @@
 	#    By: ereinald <ereinald@student.42barcel>       +#+  +:+       +#+         #
 	#                                                 +#+#+#+#+#+   +#+            #
 	#    Created: 2023/05/03 13:30:46 by ereinald          #+#    #+#              #
-#    Updated: 2023/05/24 15:20:10 by ereinald         ###   ########.fr        #
+#    Updated: 2023/06/03 12:23:37 by ereinald         ###   ########.fr        #
 	#                                                                              #
 	# **************************************************************************** #
 
 NAME = libft.a
 
-CC = gcc
+CC = cc
 
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -I/.
+
+LIB = libft.h
 
 SRCS = ft_isalpha.c ft_isdigit.c ft_isalnum.c ft_isascii.c ft_isprint.c \
 	   ft_strlen.c ft_memset.c ft_bzero.c ft_memcpy.c ft_memmove.c ft_strlcpy.c \
@@ -32,14 +34,17 @@ BONUS_OBJS = $(BONUS_SRCS:.c=.o)
 
 all : $(NAME)
 
-$(NAME) : $(OBJS)
+$(NAME) : $(OBJS) $(LIB)
 	ar rcs $(NAME) $(OBJS)
 
 
-bonus: $(OBJS) $(BONUS_OBJS)
-	ar rcs $(NAME) $(OBJS) $(BONUS_OBJS)
+bonus: .bonus 
 
-%.o: %.c
+.bonus:	$(OBJS) $(BONUS_OBJS)
+	ar rcs $(NAME) $(OBJS) $(BONUS_OBJS)
+	@touch .bonus
+
+%.o: %.c $(LIB) 
 	$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
